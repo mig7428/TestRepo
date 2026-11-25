@@ -1,0 +1,32 @@
+import tensorflow as tf
+import numpy as np
+
+# 1. Preparar los datos (Ejemplo: y = 2x - 1)
+# Entradas (X) y salidas esperadas (y)
+X = np.array([-1.0, 0.0, 1.0, 2.0, 3.0, 4.0], dtype=float)
+y = np.array([-3.0, -1.0, 1.0, 3.0, 5.0, 7.0], dtype=float)
+
+# 2. Definir la red neuronal
+# Una capa densa (Dense) con 1 neurona, que recibe 1 valor de entrada.
+modelo = tf.keras.Sequential([
+    tf.keras.layers.Dense(units=1, input_shape=[1])
+])
+
+# 3. Compilar el modelo
+# 'mean_squared_error' mide el error y 'sgd' (descenso de gradiente) ajusta los pesos
+modelo.compile(optimizer='sgd', loss='mean_squared_error')
+
+# 4. Entrenar la red neuronal (500 ciclos o "épocas")
+modelo.fit(X, y, epochs=500)
+
+# 5. Hacer una predicción
+# ¿Qué valor predice para x = 10? (Debería ser cercano a 19)
+prediccion = modelo.predict([10.0])
+print(f"Predicción para 10: {prediccion[0][0]:.4f}")
+
+
+¿Cómo funciona este código?Datos: Las redes neuronales aprenden a partir de ejemplos. Le damos a la red valores de \(X\) e \(y\) para que descubra la regla matemática que los une.
+Capas (Layers): Usamos una capa tipo Dense. units=1 significa que es una sola neurona artificial básica.
+Compilación: Le indicamos a Keras dos funciones matemáticas fundamentales para que la red pueda aprender:Pérdida (Loss): Mide qué tan mal o bien está respondiendo el modelo.
+Optimizador (Optimizer): Ajusta los parámetros internos (pesos y sesgos) para reducir ese error en el siguiente intento.
+Entrenamiento (Fit): Es el proceso donde la red "aprende" iterativamente durante la cantidad de épocas indicadas.
